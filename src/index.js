@@ -1,12 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+/**
+ * React application entrypoint.
+ */
 
-ReactDOM.render(<App />, document.getElementById('root'));
+// global styles
+import 'styles/global.css'
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+// log high-level debugging info about environment
+import 'lib/dump-env'
+
+// third-party dependencies
+import React from 'react'
+import ReactDOM from 'react-dom'
+
+import App from 'components/App'
+import * as serviceWorker from 'lib/service-worker'
+
+// mount react app
+ReactDOM.render(<App />, document.getElementById('root'))
+
+// initialize service worker: http://bit.ly/CRA-PWA
+serviceWorker.unregister()
