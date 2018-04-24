@@ -7,6 +7,15 @@ module.exports = (config, env) => {
   // add decorator support
   config = injectBabelPlugin('transform-decorators-legacy', config)
 
+  // antd support (https://ant.design/docs/react/use-with-create-react-app)
+  config = injectBabelPlugin([
+    'import', {
+      libraryName: 'antd',
+      libraryDirectory: 'es',
+      style: 'css'
+    }
+  ], config)
+
   // remove enforced pre-eslint validation during dev
   const eslintIndex = config.module.rules.findIndex(getEslintRule)
   if (eslintIndex >= 0) {
