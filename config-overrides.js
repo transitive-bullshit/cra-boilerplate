@@ -10,7 +10,9 @@ module.exports = (config, env) => {
   // remove enforced pre-eslint validation during dev
   const eslintIndex = config.module.rules.findIndex(getEslintRule)
   if (eslintIndex >= 0) {
-    config.module.rules = config.module.rules.slice(0, eslintIndex).concat(config.module.rules.slice(eslintIndex + 1))
+    config.module.rules = config.module.rules
+      .slice(0, eslintIndex)
+      .concat(config.module.rules.slice(eslintIndex + 1))
   }
 
   // allow relative imports from the top-level src directory
