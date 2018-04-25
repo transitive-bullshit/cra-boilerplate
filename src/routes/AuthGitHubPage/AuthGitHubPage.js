@@ -4,16 +4,20 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Redirect, withRouter } from 'react-router-dom'
-import { message } from 'antd'
 import qs from 'qs'
 
+import { observer, inject } from 'mobx-react'
+import { Redirect, withRouter } from 'react-router-dom'
+import { message } from 'antd'
+
 import debug from 'lib/debug'
-import AuthManager from 'store/AuthManager'
 
 @withRouter
+@inject('auth')
+@observer
 export default class AuthGitHubPage extends Component {
   static propTypes = {
+    auth: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired
   }
 
@@ -37,7 +41,7 @@ export default class AuthGitHubPage extends Component {
       pathname: query.state
     })
 
-    AuthManager.authWithGitHub({
+    this.props.auth.authWithGitHub({
       code: query.code,
       state: query.state
     })

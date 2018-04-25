@@ -5,14 +5,15 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import { observer } from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 import { Redirect, Route } from 'react-router-dom'
-import AuthManager from 'store/AuthManager'
 
+@inject('auth')
 @observer
 export default class AuthenticatedRoute extends Component {
   static propTypes = {
     component: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
     redirect: PropTypes.string
   }
 
@@ -24,6 +25,7 @@ export default class AuthenticatedRoute extends Component {
     const {
       component: Component,
       redirect,
+      auth,
       ...rest
     } = this.props
 
@@ -31,7 +33,7 @@ export default class AuthenticatedRoute extends Component {
       <Route
         {...rest}
         render={(props) => (
-          AuthManager.isAuthenticated ? (
+          auth.isAuthenticated ? (
             <Component {...props} />
           ) : (
             <Redirect

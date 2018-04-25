@@ -3,18 +3,22 @@
  */
 
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
-import { observer } from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 import { Redirect } from 'react-router-dom'
 
 import LoginForm from 'components/LoginForm'
 
-import AuthManager from 'store/AuthManager'
-
+@inject('auth')
 @observer
 export default class LoginPage extends Component {
+  static propTypes = {
+    auth: PropTypes.object.isRequired
+  }
+
   render() {
-    if (AuthManager.isAuthenticated) {
+    if (this.props.auth.isAuthenticated) {
       return (
         <Redirect to='/dashboard' />
       )

@@ -3,12 +3,19 @@
  */
 
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import { Button } from 'antd'
 
-import AuthManager from 'store/AuthManager'
+import { observer, inject } from 'mobx-react'
 
+@inject('auth')
+@observer
 export default class DashboardPage extends Component {
+  static propTypes = {
+    auth: PropTypes.object.isRequired
+  }
+
   render() {
     return (
       <div>
@@ -24,6 +31,6 @@ export default class DashboardPage extends Component {
   }
 
   _onClickLogout = (e) => {
-    AuthManager.signout()
+    this.props.auth.signout()
   }
 }

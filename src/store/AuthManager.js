@@ -17,7 +17,7 @@ class AuthManager {
   auth = null
 
   @computed get user() {
-    return this.auth.user || {}
+    return this.auth && this.auth.user
   }
 
   @observable
@@ -74,4 +74,4 @@ class AuthManager {
   }
 }
 
-export default new AuthManager()
+export default observable(new AuthManager())
