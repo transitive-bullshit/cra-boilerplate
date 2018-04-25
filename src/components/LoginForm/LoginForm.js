@@ -5,32 +5,57 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
+import { Link, withRouter } from 'react-router-dom'
+
 import {
+  Button,
+  Checkbox,
+  Divider,
   Form,
   Icon,
-  Input,
-  Button,
-  Checkbox
+  Input
 } from 'antd'
 
 const FormItem = Form.Item
 
+import authGitHub from 'lib/auth-github'
+
 import styles from './styles.module.css'
 
+@withRouter
 @Form.create()
 export default class LoginForm extends Component {
   static propTypes = {
-    form: PropTypes.object.isRequired
+    form: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired
+  }
+
+  state = {
+    loading: false
   }
 
   render() {
     const { getFieldDecorator } = this.props.form
+    const { loading } = this.state
 
     return (
-      <Form onSubmit={this._onSubmit} className={styles.loginForm}>
+      <Form
+        className={styles.loginForm}
+        onSubmit={this._onSubmit}
+      >
+        <Button
+          className={styles.submit}
+          icon='github'
+          onClick={this._onClickGitHub}
+        >
+          Login with GitHub
+        </Button>
+
+        <Divider />
+
         <FormItem>
-          {getFieldDecorator('userName', {
-            rules: [{ required: true, message: 'Please input your username!' }]
+          {getFieldDecorator('email', {
+            rules: [{ required: true, message: 'Please input your email.' }]
           })(
             <Input
               prefix={
@@ -43,7 +68,7 @@ export default class LoginForm extends Component {
 
         <FormItem>
           {getFieldDecorator('password', {
-            rules: [{ required: true, message: 'Please input your Password!' }]
+            rules: [{ required: true, message: 'Please input your password.' }]
           })(
             <Input
               prefix={
@@ -63,13 +88,23 @@ export default class LoginForm extends Component {
             <Checkbox>Remember me</Checkbox>
           )}
 
-          <a className={styles.forgot} href=''>Forgot password</a>
+          <Link
+            className={styles.forgot}
+            to='/forgot-password'
+          >
+            Forgot password
+          </Link>
 
-          <Button type='primary' htmlType='submit' className={styles.submit}>
+          <Button
+            type='primary'
+            htmlType='submit'
+            className={styles.submit}
+            loading={loading}
+          >
             Log in
           </Button>
 
-          Or <a href=''>register now!</a>
+          Or <Link to='/signup'>register now!</Link>
         </FormItem>
       </Form>
     )
@@ -80,7 +115,15 @@ export default class LoginForm extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values)
+        this.setState({
+          loading: true
+        })
       }
     })
+  }
+
+  _onClickGitHub = (e) => {
+    e.preventDefault()
+    authGitHub({ location: this.props.location })
   }
 }

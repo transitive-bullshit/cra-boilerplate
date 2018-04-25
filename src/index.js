@@ -12,7 +12,7 @@ import 'lib/dump-env'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import App from 'components/App'
+import App from './App'
 import * as serviceWorker from 'lib/service-worker'
 
 // mount react app

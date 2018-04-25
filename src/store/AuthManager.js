@@ -59,6 +59,14 @@ class AuthManager {
 
     this.auth = null
   }
+
+  async authWithGitHub(opts) {
+    debug(`AuthManager.authWithGitHub`)
+    const auth = await API.authWithGitHub(opts)
+
+    await LocalStore.set(AUTH_STORE_KEY, auth)
+    this.auth = auth
+  }
 }
 
 export default new AuthManager()
