@@ -1,0 +1,6 @@
+{
+  "name": "automagical-test",
+  "alias": "test.automagical.ai",
+  "public": true,
+  "dotenv": true
+}

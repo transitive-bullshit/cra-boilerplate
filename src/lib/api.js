@@ -40,6 +40,14 @@ class API {
     }).then(res => res.data)
   }
 
+  async authWithFacebook(data) {
+    return this._request({
+      url: `/1/auth/facebook`,
+      method: 'put',
+      data
+    }).then(res => res.data)
+  }
+
   // --------------------------------------------------------------------------
   // Users
   // --------------------------------------------------------------------------

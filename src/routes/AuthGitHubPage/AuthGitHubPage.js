@@ -47,8 +47,6 @@ export default class AuthGitHubPage extends Component {
     })
       .then(() => {
         this.setState({ loading: false })
-
-        message.success('Success authenticating with GitHub.')
       }, (err) => {
         this.setState({ loading: false })
 

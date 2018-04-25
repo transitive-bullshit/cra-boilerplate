@@ -76,6 +76,14 @@ class AuthManager {
     await LocalStore.set(AUTH_STORE_KEY, auth)
     this.auth = auth
   }
+
+  async authWithFacebook(opts) {
+    debug(`AuthManager.authWithFacebook`)
+    const auth = await API.authWithFacebook(opts)
+
+    await LocalStore.set(AUTH_STORE_KEY, auth)
+    this.auth = auth
+  }
 }
 
 export default observable(new AuthManager())

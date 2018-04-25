@@ -11,7 +11,7 @@
     "eject": "react-app-rewired eject",
     "analyze": "source-map-explorer build/static/js/main.*",
     "deploy": "NODE_ENV=production now",
-    "force-deploy": "yarn run deploy && now alias && now rm --safe cra-boilerplate",
+    "force-deploy": "yarn run deploy && now alias && now rm --safe automagical-test",
     "now-start": "serve -s ./build"
   },
   "browserslist": {
@@ -41,6 +41,7 @@
     "react": "^16.3.2",
     "react-app-rewired": "^1.5.0",
     "react-dom": "^16.3.2",
+    "react-facebook-login": "^4.0.1",
     "react-router-dom": "^4.2.2",
     "react-scripts": "2.0.0-next.66cc7a90",
     "serve": "^6.5.5"
