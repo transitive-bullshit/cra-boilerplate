@@ -9,7 +9,6 @@ import { message } from 'antd'
 import qs from 'qs'
 
 import debug from 'lib/debug'
-import authGitHub from 'lib/auth-github'
 import AuthManager from 'store/AuthManager'
 
 @withRouter
@@ -39,14 +38,13 @@ export default class AuthGitHubPage extends Component {
     })
 
     AuthManager.authWithGitHub({
-      ...authGitHub.config,
       code: query.code,
       state: query.state
     })
       .then(() => {
         this.setState({ loading: false })
 
-        message.error('Success authenticating with GitHub.')
+        message.success('Success authenticating with GitHub.')
       }, (err) => {
         this.setState({ loading: false })
 
