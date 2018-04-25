@@ -13,27 +13,36 @@ class API {
   baseUrl = baseUrl
 
   // --------------------------------------------------------------------------
-  // Users
+  // Auth
   // --------------------------------------------------------------------------
 
-  async signin(email, password) {
+  async signin(data) {
     return this._request({
-      url: `/1/users/signin`,
+      url: `/1/auth/signin`,
       method: 'put',
-      data: {
-        email,
-        password
-      }
+      data
     }).then(res => res.data)
   }
 
   async signup(data) {
     return this._request({
-      url: `/1/users/signup`,
+      url: `/1/auth/signup`,
       method: 'post',
       data
     }).then(res => res.data)
   }
+
+  async authWithGitHub(data) {
+    return this._request({
+      url: `/1/auth/github`,
+      method: 'put',
+      data
+    }).then(res => res.data)
+  }
+
+  // --------------------------------------------------------------------------
+  // Users
+  // --------------------------------------------------------------------------
 
   async getMe() {
     return this._request({
@@ -44,18 +53,6 @@ class API {
   async updateMe(data) {
     return this._request({
       url: `/1/me`,
-      method: 'put',
-      data
-    }).then(res => res.data)
-  }
-
-  // --------------------------------------------------------------------------
-  // Auth
-  // --------------------------------------------------------------------------
-
-  async authWithGitHub(data) {
-    return this._request({
-      url: `/1/auth/github`,
       method: 'put',
       data
     }).then(res => res.data)

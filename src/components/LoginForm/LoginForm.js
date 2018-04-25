@@ -5,6 +5,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
+import { inject } from 'mobx-react'
 import { Link, withRouter } from 'react-router-dom'
 
 import {
@@ -13,19 +14,23 @@ import {
   Divider,
   Form,
   Icon,
-  Input
+  Input,
+  message
 } from 'antd'
 
 const FormItem = Form.Item
 
 import authGitHub from 'lib/auth-github'
+import debug from 'lib/debug'
 
 import styles from './styles.module.css'
 
+@inject('auth')
 @withRouter
 @Form.create()
 export default class LoginForm extends Component {
   static propTypes = {
+    auth: PropTypes.object.isRequired,
     form: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired
   }
@@ -112,12 +117,14 @@ export default class LoginForm extends Component {
 
   _onSubmit = (e) => {
     e.preventDefault()
-    this.props.form.validateFields((err, values) => {
+    this.props.form.validateFields((err, data) => {
       if (!err) {
-        console.log('Received values of form: ', values)
-        this.setState({
-          loading: true
-        })
+        this.setState({ loading: true })
+        this.props.auth.signin(data)
+          .catch((err) => {
+            debug(err)
+            message.error('Error authenticating with GitHub')
+          })
       }
     })
   }

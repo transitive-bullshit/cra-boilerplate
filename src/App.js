@@ -19,6 +19,10 @@ import AuthManager from 'store/AuthManager'
 @observer
 export default class App extends Component {
   render() {
+    if (AuthManager.isBootstrapping) {
+      return null
+    }
+
     return (
       <Router>
         <Provider auth={AuthManager}>

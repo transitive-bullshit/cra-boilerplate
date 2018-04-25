@@ -37,11 +37,15 @@ class AuthManager {
       })
   }
 
-  async signin(email, password) {
-    debug(`AuthManager.signin "${email}"`)
+  async signin(opts) {
+    debug(`AuthManager.signin "${opts.email}"`)
 
-    const auth = await API.signin(email, password)
-    await LocalStore.set(AUTH_STORE_KEY, auth)
+    const auth = await API.signin(opts)
+
+    if (opts.remember !== false) {
+      await LocalStore.set(AUTH_STORE_KEY, auth)
+    }
+
     this.auth = auth
   }
 

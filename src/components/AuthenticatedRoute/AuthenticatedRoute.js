@@ -29,6 +29,16 @@ export default class AuthenticatedRoute extends Component {
       ...rest
     } = this.props
 
+    if (!auth.isAuthenticated) {
+      return (
+        <Redirect
+          to={{
+            pathname: redirect
+          }}
+        />
+      )
+    }
+
     return (
       <Route
         {...rest}
