@@ -35,13 +35,6 @@ class API {
     }).then(res => res.data)
   }
 
-  async signout(email, password) {
-    return this._request({
-      url: `/1/users/signout`,
-      method: 'put'
-    }).then(res => res.data)
-  }
-
   async getMe() {
     return this._request({
       url: `/1/me`

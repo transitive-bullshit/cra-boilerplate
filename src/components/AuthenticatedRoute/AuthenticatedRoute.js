@@ -5,9 +5,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
+import { observer } from 'mobx-react'
 import { Redirect, Route } from 'react-router-dom'
 import AuthManager from 'store/AuthManager'
 
+@observer
 export default class AuthenticatedRoute extends Component {
   static propTypes = {
     component: PropTypes.func.isRequired,

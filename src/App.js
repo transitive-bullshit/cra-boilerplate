@@ -4,6 +4,7 @@
 
 import React, { Component } from 'react'
 
+import { observer } from 'mobx-react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import AuthenticatedRoute from 'components/AuthenticatedRoute'
@@ -13,6 +14,7 @@ import HomePage from 'routes/HomePage'
 import LoginPage from 'routes/LoginPage'
 import AuthGitHubPage from 'routes/AuthGitHubPage'
 
+@observer
 export default class App extends Component {
   render() {
     return (

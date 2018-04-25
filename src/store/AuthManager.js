@@ -8,7 +8,7 @@ import debug from 'lib/debug'
 import API from 'lib/api'
 import LocalStore from 'store/LocalStore'
 
-import { config } from 'lib/auth-github'
+import { config as githubConfig } from 'lib/auth-github'
 
 const AUTH_STORE_KEY = 'auth'
 
@@ -56,7 +56,7 @@ class AuthManager {
   async signout() {
     debug(`AuthManager.signout`)
 
-    await API.signout()
+    // await API.signout()
     await LocalStore.remove(AUTH_STORE_KEY)
 
     this.auth = null
@@ -65,7 +65,7 @@ class AuthManager {
   async authWithGitHub(opts) {
     debug(`AuthManager.authWithGitHub`)
     const auth = await API.authWithGitHub({
-      ...config,
+      ...githubConfig,
       ...opts
     })
 
